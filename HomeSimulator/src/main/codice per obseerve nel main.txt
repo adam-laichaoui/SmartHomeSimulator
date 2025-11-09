@@ -1,0 +1,6 @@
+private Observer osservatore; // non creare il frame qui
+
+// quando crei MyFrame
+Centralina centralina = new Centralina();
+MyFrame frame = new MyFrame(centralina); // frame passa se stesso alla centralina
+centralina.setObserver(frame); // collega l'osservatore reale

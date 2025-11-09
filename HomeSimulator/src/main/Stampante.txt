@@ -1,0 +1,23 @@
+package main;
+
+import java.util.Map;
+
+/*
+ * Futura GUI: Implementa l'Observer ed ha il ruolo di Osservatore.
+ * Ogni volta che si aggiornano i dati nella Centralina li stamperà.
+ */
+public class Stampante implements Observer{
+	
+	@Override
+	public void update(String id, Map<String, DatoSensore> datiAggiornati) {
+		
+		DatoSensore dato = datiAggiornati.get(id);
+		
+		System.out.println(generaStato(id, dato));
+	}
+	
+	public String generaStato(String id, DatoSensore dato) {
+		
+	    return String.format("[%s] %s: %s = %.2f", dato.getOraFormattata(), id, dato.getTipo(), dato.getValore());
+	}
+}

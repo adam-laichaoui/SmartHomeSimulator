@@ -11,7 +11,14 @@ public class Centralina {
 	
 	private final Map<String, DatoSensore> datiSensori = new HashMap<>();
 
-	private Observer osservatore = new Stampante();
+	private Observer osservatore;
+
+
+	public Centralina(Observer osservatore){
+		
+		this.osservatore = osservatore;
+
+	}
 	
 	public synchronized void aggiornaDato(String id, DatoSensore dato) {
 	        datiSensori.put(id, dato);
