@@ -55,9 +55,19 @@ public abstract class Sensore extends Thread {
         }
     }
     
-	public void accendi() {
+	/*public void accendi() {
     	attivo = true;
+    }*/
+
+    // modificato per far funzionare la gui 
+
+    public void accendi() {
+    attivo = true;
+    synchronized (this) {
+        notify();   
     }
+}
+
 
     public void spegni() {
     	attivo = false;
