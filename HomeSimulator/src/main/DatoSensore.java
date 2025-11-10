@@ -39,7 +39,7 @@ public class DatoSensore {
     //mostrare meglio il valore double 
 
     
-    // 🔹 Restituisce il valore arrotondato a 2 cifre decimali
+    // Restituisce il valore arrotondato a 2 cifre decimali
     public String getValoreFormattato() {
         DecimalFormat df = new DecimalFormat("#.##");
         return df.format(valore);

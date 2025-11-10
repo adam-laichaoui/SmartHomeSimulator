@@ -1,23 +1,22 @@
 package main;
 
-
+/**
+ * Classe di avvio principale dell'applicazione Casa IoT Simulator.
+ * Avvia la GUI Swing e quindi i thread dei sensori.
+ */
 public class Main {
 
     public static void main(String[] args) {
-    /*
-    	Centralina c = new Centralina();
-    	
-    	SensoreLuce sL = new SensoreLuce(c);
-    	SensoreTemperatura sT = new SensoreTemperatura(c);
-    	
-    	sL.start();
-    	sT.start();*/
-		// quando crei MyFrame
-	MyFrame frame = new MyFrame(); // frame passa se stesso alla centralina
-	Centralina centralina = new Centralina(frame);
-	//centralina.setObserver(frame); // collega l'osservatore reale
+        // Imposta lo stile grafico del sistema operativo (facoltativo, ma più gradevole)
+        try {
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            System.out.println("Impossibile impostare il look and feel di sistema: " + e.getMessage());
+        }
 
-
-
+        // Avvio della GUI Swing nel thread dedicato all'interfaccia grafica (EDT)
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            new MyFrame(); // crea e mostra la finestra principale
+        });
     }
 }
