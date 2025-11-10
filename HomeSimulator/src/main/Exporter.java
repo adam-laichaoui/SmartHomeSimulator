@@ -26,7 +26,7 @@ public class Exporter {
                     writer.write("Sensore: " + entry.getKey());
                     writer.newLine();
                     for (DatoSensore d : entry.getValue()) {
-                        writer.write("  " + d.getOraFormattata() + "  →  " + d.getValore() + " " + d.getUnitaMisura());
+                        writer.write("  " + d.getOraFormattata() + "  →  " + d.getValore() );
                         writer.newLine();
                     }
                     writer.newLine();

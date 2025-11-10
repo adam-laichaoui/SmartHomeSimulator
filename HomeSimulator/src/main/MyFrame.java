@@ -10,6 +10,8 @@ public class MyFrame extends JFrame implements Observer {
     private Centralina centralina;
     private JPanel sensorsPanel;
     private Map<String, SensorPanel> panels;
+    private boolean freezeAttivo = false; // indica se i sensori sono attualmente in pausa
+
 
     public MyFrame() {
         super("Casa IoT Simulator");
@@ -36,7 +38,23 @@ public class MyFrame extends JFrame implements Observer {
         JButton nuovoSensoreBtn = new JButton("Nuovo sensore");
 
         generaBtn.addActionListener(e -> accendiSensori());
-        freezeBtn.addActionListener(e -> spegniSensori());
+        freezeBtn.addActionListener(e -> {
+            if (!freezeAttivo) {
+                // Se il freeze non è attivo → spegne tutti i sensori
+                spegniSensori();
+                freezeAttivo = true;
+                freezeBtn.setText("Riprendi");
+                JOptionPane.showMessageDialog(this, "Tutti i sensori sono stati messi in pausa.", 
+                        "Freeze", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Se il freeze è attivo → riaccende tutti i sensori
+                accendiSensori();
+                freezeAttivo = false;
+                freezeBtn.setText("Freeze");
+                JOptionPane.showMessageDialog(this, "Tutti i sensori sono stati riattivati.", 
+                        "Freeze disattivato", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
         nuovoSensoreBtn.addActionListener(e -> creaNuovoSensore());
 
         controlPanel.add(generaBtn);
@@ -114,9 +132,11 @@ public class MyFrame extends JFrame implements Observer {
     }
 
     private void esportaDati() {
-        Exporter.esporta(centralina.getDati());
-        JOptionPane.showMessageDialog(this, "Dati esportati sul Desktop.");
-    }
+    // 🔹 ora esporta l’intero storico dei valori
+    Exporter.esportaStorico(centralina.getStorico());
+    JOptionPane.showMessageDialog(this, "Storico completo esportato sul Desktop.");
+}
+
 
     @Override
     public void update(String id, Map<String, DatoSensore> dati) {
