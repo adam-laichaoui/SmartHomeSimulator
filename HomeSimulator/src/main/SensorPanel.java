@@ -14,12 +14,12 @@ public class SensorPanel extends JPanel {
         this.sensore = s;
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        // 🔹 Usa l'ID testuale del sensore, non quello di Thread
+        // Usa l'ID testuale del sensore, non quello di Thread
         setBorder(BorderFactory.createTitledBorder(
             s.getClass().getSimpleName() + " (" + s.getIdSensore() + ")"
         ));
 
-        // 🔹 Mostra il nome personalizzato se presente
+        //  Mostra il nome personalizzato se presente
         nomeLabel = new JLabel("Nome: " +
             (s.getNomePersonalizzato() != null ? s.getNomePersonalizzato() : "N/D"));
 
@@ -37,7 +37,7 @@ public class SensorPanel extends JPanel {
 
     public void updateData(DatoSensore dato) {
         if (dato != null) {
-            valoreLabel.setText("Valore: " + dato.getValore());
+            valoreLabel.setText("Valore: " + dato.getValoreFormattato());
         }
     }
 

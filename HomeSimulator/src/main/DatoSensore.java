@@ -1,5 +1,6 @@
 package main;
 
+import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -33,5 +34,14 @@ public class DatoSensore {
     public String getOraFormattata() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         return timestamp.format(formatter);
+    }
+
+    //mostrare meglio il valore double 
+
+    
+    // 🔹 Restituisce il valore arrotondato a 2 cifre decimali
+    public String getValoreFormattato() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(valore);
     }
 }
