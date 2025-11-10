@@ -66,4 +66,21 @@ public abstract class Sensore extends Thread {
     public boolean isAcceso() {
     	return attivo;
     }
+
+    //serve per la gui
+public String getIdSensore() {
+    return id;
+}
+
+// idea per personalizzare da tastiera il nome del sensore 
+private String nomePersonalizzato;
+
+public void setNomePersonalizzato(String nome) {
+    this.nomePersonalizzato = nome;
+}
+
+public String getNomePersonalizzato() {
+    return nomePersonalizzato;
+}
+
 }

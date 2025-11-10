@@ -24,4 +24,11 @@ public class Centralina {
 	        datiSensori.put(id, dato);
 	        osservatore.update(id, datiSensori);
 	}
+
+	// serve alla gui per l'exporter 
+
+	public synchronized Map<String, DatoSensore> getDati() {
+    return new HashMap<>(datiSensori);
+}
+
 }
