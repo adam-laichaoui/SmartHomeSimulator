@@ -48,6 +48,7 @@ public class DatoSensore {
     // perchè funzioni il pannellodello  storico 
        @Override
     public String toString() {
-        return String.format("Valore: %.2f  (timestamp:)", valore,  timestamp);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        return String.format("Valore: %.2f  (Ora Rilevazione:%s)", valore,  timestamp.format(formatter));
     }
 }
