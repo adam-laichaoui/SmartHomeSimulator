@@ -15,8 +15,8 @@ public class SensoreTemperatura extends Sensore {
     private static final double TEMPERATURA_MAX = 27;
     
     public SensoreTemperatura(Centralina centralina) {
-        super(PREFIX_SENSORE + contaDispositivi, centralina);
-        synchronized (this) {
+        super("TEMP-" + contaDispositivi, centralina, TipoSensore.TEMPERATURA);
+        synchronized (SensoreTemperatura.class) {
             contaDispositivi++;
         }
     }

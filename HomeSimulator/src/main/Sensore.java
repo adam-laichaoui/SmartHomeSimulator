@@ -14,12 +14,16 @@ public abstract class Sensore extends Thread {
 
     // Nome personalizzabile (per la GUI)
     private String nomePersonalizzato;
+    private final  TipoSensore tipo;
 
     // Costruttore
-    public Sensore(String id, Centralina centralina) {
+    public Sensore(String id, Centralina centralina, TipoSensore tipo) {
         this.id = id;
         this.centralina = centralina;
+        this.tipo =tipo;
     }
+
+
 
     // Metodi astratti da implementare nei sensori specifici
     public abstract double generaValore();
@@ -68,13 +72,13 @@ public abstract class Sensore extends Thread {
         }
     }
 
-    // ✅ Accende il sensore e risveglia il thread
+    // Accende il sensore e risveglia il thread
     public synchronized void accendi() {
         attivo = true;
         notifyAll(); // risveglia il thread se era in attesa
     }
 
-    // ✅ Spegne il sensore
+    // Spegne il sensore
     public synchronized void spegni() {
         attivo = false;
     }
@@ -84,7 +88,7 @@ public abstract class Sensore extends Thread {
         return attivo;
     }
 
-    // ✅ Getter e setter per GUI
+    // Getter e setter per GUI
 
     public String getIdSensore() {
         return id;
@@ -97,4 +101,27 @@ public abstract class Sensore extends Thread {
     public String getNomePersonalizzato() {
         return nomePersonalizzato != null ? nomePersonalizzato : id;
     }
+
+    //facilitarne l'utlizzo dei nomi di tipo sensore
+    public enum TipoSensore {
+    LUCE("Sensore di luce"),
+    FUMO("Sensore di rilevamento fumo"),
+    MOVIMENTO("Sensore di movimento"),
+    UMIDITA("Sensore di umidità"),
+    TEMPERATURA("Sensore di temperatura");
+
+    private final String descrizione;
+
+    TipoSensore(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
 }
+   public TipoSensore getTipo() {
+    return tipo;}
+}
+
+

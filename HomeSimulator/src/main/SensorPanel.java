@@ -11,29 +11,45 @@ public class SensorPanel extends JPanel {
     private JButton powerBtn;
 
     public SensorPanel(Sensore s) {
-        this.sensore = s;
-        setLayout(new FlowLayout(FlowLayout.LEFT));
+    this.sensore = s;
+    setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        // Usa l'ID testuale del sensore, non quello di Thread
-        setBorder(BorderFactory.createTitledBorder(
-            s.getClass().getSimpleName() + " (" + s.getIdSensore() + ")"
-        ));
+    // Usa l'ID testuale del sensore
+    setBorder(BorderFactory.createTitledBorder(
+        s.getClass().getSimpleName() + " (" + s.getIdSensore() + ")"
+    ));
 
-        //  Mostra il nome personalizzato se presente
-        nomeLabel = new JLabel("Nome: " +
-            (s.getNomePersonalizzato() != null ? s.getNomePersonalizzato() : "N/D"));
+    // Nuova label per il tipo sensore
+    JLabel tipoLabel = new JLabel("Tipo: " + s.getTipo().getDescrizione());
+    tipoLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
 
-        statoLabel = new JLabel("Stato: OFF");
-        valoreLabel = new JLabel("Valore: N/D");
-        powerBtn = new JButton("Accendi");
-
-        powerBtn.addActionListener(e -> togglePower());
-
-        add(nomeLabel);
-        add(statoLabel);
-        add(valoreLabel);
-        add(powerBtn);
+    // Colore in base al tipo
+    switch (sensore.getTipo()) {
+        case LUCE -> tipoLabel.setForeground(Color.YELLOW.darker());
+        case TEMPERATURA -> tipoLabel.setForeground(Color.RED);
+        case UMIDITA -> tipoLabel.setForeground(Color.CYAN.darker());
+        case  FUMO -> tipoLabel.setForeground(Color.GREEN.darker());
+        case MOVIMENTO -> tipoLabel.setForeground(Color.MAGENTA.darker());
     }
+
+    // Mostra nome personalizzato
+    nomeLabel = new JLabel("Nome: " +
+        (s.getNomePersonalizzato() != null ? s.getNomePersonalizzato() : "N/D"));
+
+    statoLabel = new JLabel("Stato: " + (s.isAcceso() ? "ON" : "OFF"));
+    valoreLabel = new JLabel("Valore: N/D");
+    powerBtn = new JButton(s.isAcceso() ? "Spegni" : "Accendi");
+
+    powerBtn.addActionListener(e -> togglePower());
+
+    //Aggiungi tutti i componenti
+    add(tipoLabel);
+    add(nomeLabel);
+    add(statoLabel);
+    add(valoreLabel);
+    add(powerBtn);
+}
+
 
     public void updateData(DatoSensore dato) {
         if (dato != null) {

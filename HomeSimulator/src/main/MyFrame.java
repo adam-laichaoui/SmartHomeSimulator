@@ -1,6 +1,8 @@
 //package main;
 
 import javax.swing.*;
+
+
 import java.awt.*;
 // import java.awt.event.*; -------> non ulilizzato perchè uso lamda expression
 import java.util.*;
@@ -67,6 +69,9 @@ public class MyFrame extends JFrame implements Observer {
         // SENSORS INIZIALI
         aggiungiSensore(new SensoreLuce(centralina));
         aggiungiSensore(new SensoreTemperatura(centralina));
+        aggiungiSensore(new SensoreUmidita(centralina));
+        aggiungiSensore(new SensoreFumo(centralina));
+        aggiungiSensore(new SensoreMovimento(centralina));
 
         setVisible(true);
     }
@@ -80,39 +85,47 @@ public class MyFrame extends JFrame implements Observer {
     }
 
     private void creaNuovoSensore() {
-        JPanel panel = new JPanel(new GridLayout(2, 2, 5, 5));
-        JLabel labelTipo = new JLabel("Tipo di sensore:");
-        JLabel labelNome = new JLabel("Nome personalizzato:");
-        String[] options = {"Sensore Luce", "Sensore Temperatura"};
-        JComboBox<String> combo = new JComboBox<>(options);
-        JTextField nomeField = new JTextField();
+    JPanel panel = new JPanel(new GridLayout(2, 2, 5, 5));
+    JLabel labelTipo = new JLabel("Tipo di sensore:");
+    JLabel labelNome = new JLabel("Nome personalizzato:");
 
-        panel.add(labelTipo);
-        panel.add(combo);
-        panel.add(labelNome);
-        panel.add(nomeField);
+    // ComboBox con enum interno
+    JComboBox<Sensore.TipoSensore> combo = new JComboBox<>(Sensore.TipoSensore.values());
+    JTextField nomeField = new JTextField();
 
-        int result = JOptionPane.showConfirmDialog(this, panel, "Crea Nuovo Sensore",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+    panel.add(labelTipo);
+    panel.add(combo);
+    panel.add(labelNome);
+    panel.add(nomeField);
 
-        if (result == JOptionPane.OK_OPTION) {
-            String scelta = (String) combo.getSelectedItem();
-            String nome = nomeField.getText().trim();
+    int result = JOptionPane.showConfirmDialog(
+            this, panel, "Crea Nuovo Sensore",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE
+    );
 
-            Sensore nuovo = null;
-            if (scelta.equals("Sensore Luce")) {
-                nuovo = new SensoreLuce(centralina);
-            } else if (scelta.equals("Sensore Temperatura")) {
-                nuovo = new SensoreTemperatura(centralina);
-            }
-            if (nuovo != null) {
-                if (!nome.isEmpty()) {
-                    nuovo.setNomePersonalizzato(nome);
-                }
-                aggiungiSensore(nuovo);
+    if (result == JOptionPane.OK_OPTION) {
+        Sensore.TipoSensore tipo = (Sensore.TipoSensore) combo.getSelectedItem();
+        String nome = nomeField.getText().trim();
+        Sensore nuovo = null;
+
+        if (tipo != null) {
+            switch (tipo) {
+                case LUCE -> nuovo = new SensoreLuce(centralina);
+                case TEMPERATURA -> nuovo = new SensoreTemperatura(centralina);
+                case UMIDITA -> nuovo = new SensoreUmidita(centralina);
+                case FUMO -> nuovo = new SensoreFumo(centralina);
+                case MOVIMENTO -> nuovo = new SensoreMovimento(centralina);
             }
         }
+
+        if (nuovo != null) {
+            if (!nome.isEmpty()) {
+                nuovo.setNomePersonalizzato(nome);
+            }
+            aggiungiSensore(nuovo);
+        }
     }
+}
 
     private void accendiSensori() {
         for (SensorPanel p : panels.values()) {

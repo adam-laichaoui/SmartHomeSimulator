@@ -1,9 +1,15 @@
-#COSE DA FARE 
+# creare pannello logger a destra 
 
--IMPLEMENTARE ENUM PER VARI TIPI DI SENSORE DA UTILIZZARE NEL MENU A TENDI PER CREARE NUOVO SENSORE PERSONALIZZATO 
+#sistemare nelle calssi i pannel per my frame più corto 
 
--CARICARE FILE DI ALTRI TIPI SENSORI
+#  migliorare esterica 
 
--PENSARE ALLA GRAFICA 
+#@Adam @Simone scrivete qui se devo fare altro grazie 
 
--
+
+#far vedere immagine all'avvio 
+
+#sistemare e vedere calsse costante
+
+
+#?DISPOITIVI?

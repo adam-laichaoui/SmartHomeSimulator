@@ -15,8 +15,8 @@ public class SensoreLuce extends Sensore {
     private static final double LUMINOSITA_MAX = 600;
     
     public SensoreLuce(Centralina centralina) {
-        super(PREFIX_SENSORE + contaDispositivi, centralina);
-        synchronized (this) {
+        super("LUCE-" + contaDispositivi, centralina, TipoSensore.LUCE);
+        synchronized (SensoreLuce.class) {
             contaDispositivi++;
         }
     }
