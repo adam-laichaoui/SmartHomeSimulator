@@ -23,13 +23,7 @@ public class MyFrame extends JFrame implements Observer {
         panels = new HashMap<>();
         centralina = new Centralina(this);
 
-        // MENU
-        // JMenuBar menuBar = new JMenuBar();
-        // JMenu fileMenu = new JMenu("File");
-        // JMenuItem exportItem = new JMenuItem("Esporta");
-        // exportItem.addActionListener(e -> esportaDati());
-        // fileMenu.add(exportItem);
-        // menuBar.add(fileMenu);
+        //MENU
          setJMenuBar( new MyMenu( this)); // cosi posso collegare mymenu a centralina 
 
         // PANNELLO PULSANTI

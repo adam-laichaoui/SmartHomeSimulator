@@ -49,19 +49,22 @@ public class SplashScreen extends JWindow {
         panel.add(loading, BorderLayout.SOUTH);
 
         getContentPane().add(panel);
-        setSize(1000, 1000);
+        setSize(400, 250);
         setLocationRelativeTo(null);
     }
 
     /**
      * Mostra lo splash screen per alcuni secondi, poi apre la GUI principale.
      */
-    public void showForSeconds(int seconds) {
-        setVisible(true);
-        // Timer Swing: dopo tot secondi chiude lo splash e apre MyFrame
-        new Timer(seconds * 1000, e -> {
-            dispose(); // chiude lo splash
-            new MyFrame(); // apre la finestra principale
-        }).start();
-    }
+  public void showForSeconds(int seconds, MyFrame frame) {
+    setVisible(true);
+
+    Timer timer = new Timer(seconds * 1000, e -> {
+        dispose();                // chiude lo splash
+        frame.setVisible(true);   // mostra la GUI principale già creata
+    });
+    timer.setRepeats(false);      // ✅ esegui solo una volta
+    timer.start();
+}
+
 }

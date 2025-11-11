@@ -10,7 +10,7 @@ public abstract class Sensore extends Thread {
 
     private static final String MSG_ERR = "Errore: ";
 	private final String id;
-    private boolean attivo = true;
+    private boolean attivo = false;
     
     private Centralina centralina;
     
