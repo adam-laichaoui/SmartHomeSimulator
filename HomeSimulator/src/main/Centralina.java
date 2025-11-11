@@ -1,58 +1,56 @@
-//package main;
 
 import java.util.*;
 
-/*
- * Riceve ed immagazzina i valori generati dai vari sensori, risolvendo la concorrenza.
- * Notifica la GUI tramite Observer Pattern il fatto che ci siano dei dati aggiornati.
+/**
+ * Riceve ed immagazzina i valori generati dai sensori,
+ * mantiene lo storico e notifica la GUI tramite l'Observer Pattern.
  */
 public class Centralina {
 
-    // Mantiene lo storico completo dei valori di ogni sensore
-    private final Map<String, List<DatoSensore>> storicoSensori = new HashMap<>();
+    // Storico completo: id sensore → lista di tutti i dati registrati
+    private final Map<String, List<DatoSensore>> storicoDati = new HashMap<>();
 
+    // Ultimi valori aggiornati di ciascun sensore
+    private final Map<String, DatoSensore> ultimiValori = new HashMap<>();
+
+    // Osservatore (la GUI MyFrame)
     private Observer osservatore;
 
     public Centralina(Observer osservatore) {
         this.osservatore = osservatore;
     }
 
-    //  Aggiunge un nuovo dato allo storico e notifica la GUI
+    /**
+     * Aggiunge un nuovo dato allo storico e aggiorna la GUI.
+     */
     public synchronized void aggiornaDato(String id, DatoSensore dato) {
-        // aggiungi il dato alla lista del sensore, creando la lista se non esiste
-        storicoSensori.computeIfAbsent(id, k -> new ArrayList<>()).add(dato);
+        // aggiungi il dato alla lista dello storico
+        storicoDati.computeIfAbsent(id, k -> new ArrayList<>()).add(dato);
 
-        // costruisci una mappa temporanea con SOLO l'ultimo valore di ogni sensore
-        Map<String, DatoSensore> ultimiValori = new HashMap<>();
-        for (Map.Entry<String, List<DatoSensore>> e : storicoSensori.entrySet()) {
-            List<DatoSensore> lista = e.getValue();
-            if (!lista.isEmpty()) {
-                ultimiValori.put(e.getKey(), lista.get(lista.size() - 1));
-            }
+        // aggiorna anche l'ultimo valore
+        ultimiValori.put(id, dato);
+
+        //  notifica la GUI con i dati aggiornati
+        if (osservatore != null) {
+            osservatore.update(id, new HashMap<>(ultimiValori));
         }
-
-        // notifica la GUI con gli ultimi valori
-        osservatore.update(id, ultimiValori);
     }
 
-    // Restituisce una copia di tutto lo storico dei sensori
+    /**
+     * Restituisce lo storico completo dei sensori (copia difensiva).
+     */
     public synchronized Map<String, List<DatoSensore>> getStorico() {
         Map<String, List<DatoSensore>> copia = new HashMap<>();
-        for (var entry : storicoSensori.entrySet()) {
+        for (var entry : storicoDati.entrySet()) {
             copia.put(entry.getKey(), new ArrayList<>(entry.getValue()));
         }
         return copia;
     }
 
-    // Restituisce solo gli ultimi valori (per compatibilità)
+    /**
+     * Restituisce gli ultimi valori di ogni sensore.
+     */
     public synchronized Map<String, DatoSensore> getUltimiValori() {
-        Map<String, DatoSensore> mappa = new HashMap<>();
-        for (var entry : storicoSensori.entrySet()) {
-            List<DatoSensore> lista = entry.getValue();
-            if (!lista.isEmpty()) {
-                mappa.put(entry.getKey(), lista.get(lista.size() - 1));
-            }
-        }
-        return mappa;
+        return new HashMap<>(ultimiValori);
     }
 }

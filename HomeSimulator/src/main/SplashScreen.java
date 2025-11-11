@@ -13,7 +13,6 @@ public class SplashScreen extends JWindow {
         // Pannello principale
         JPanel panel = new JPanel();
         panel.setBackground(new Color(Costanti.COLOR2_HEX));
-        panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
         panel.setLayout(new BorderLayout());
 
         // Prova a caricare il logo dal classpath

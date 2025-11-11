@@ -25,7 +25,7 @@ public class SensorPanel extends JPanel {
 
     // Colore in base al tipo
     switch (sensore.getTipo()) {
-        case LUCE -> tipoLabel.setForeground(Color.YELLOW.darker());
+        case LUCE -> tipoLabel.setForeground(Color.YELLOW.darker());//darker() serve per migliorare la leggibilità del colore 
         case TEMPERATURA -> tipoLabel.setForeground(Color.RED);
         case UMIDITA -> tipoLabel.setForeground(Color.CYAN.darker());
         case  FUMO -> tipoLabel.setForeground(Color.GREEN.darker());

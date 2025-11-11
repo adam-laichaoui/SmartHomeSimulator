@@ -9,7 +9,7 @@ public abstract class Sensore extends Thread {
     private static final String MSG_ERR = "Errore: ";
 
     private final String id;
-    private boolean attivo = false; //  i sensori partono accesi di default
+    private boolean attivo = true;//i sensori partono accesi di default
     private Centralina centralina;
 
     // Nome personalizzabile (per la GUI)

@@ -44,4 +44,10 @@ public class DatoSensore {
         DecimalFormat df = new DecimalFormat("#.##");
         return df.format(valore);
     }
+
+    // perchè funzioni il pannellodello  storico 
+       @Override
+    public String toString() {
+        return String.format("Valore: %.2f  (timestamp:)", valore,  timestamp);
+    }
 }

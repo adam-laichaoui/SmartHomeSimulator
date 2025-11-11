@@ -12,6 +12,7 @@ public class MyFrame extends JFrame implements Observer {
     private JPanel sensorsPanel;
     private Map<String, SensorPanel> panels;
     private boolean freezeAttivo = false; // indica se i sensori sono attualmente in pausa
+    private PannelloStorico pannelloStorico;
 
 
     public MyFrame() {
@@ -72,6 +73,9 @@ public class MyFrame extends JFrame implements Observer {
         aggiungiSensore(new SensoreUmidita(centralina));
         aggiungiSensore(new SensoreFumo(centralina));
         aggiungiSensore(new SensoreMovimento(centralina));
+       
+        pannelloStorico = new PannelloStorico();
+        add(pannelloStorico, BorderLayout.EAST);
 
         setVisible(true);
     }
@@ -146,10 +150,15 @@ public class MyFrame extends JFrame implements Observer {
     }
 
 
+    
     @Override
-    public void update(String id, Map<String, DatoSensore> dati) {
+public void update(String id, Map<String, DatoSensore> dati) {
+    SwingUtilities.invokeLater(() -> {// se no non genera valori
         if (id != null && panels.containsKey(id)) {
             panels.get(id).updateData(dati.get(id));
         }
-    }
+        pannelloStorico.aggiornaStorico(centralina.getStorico());
+    });
+}
+
 }
