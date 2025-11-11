@@ -2,8 +2,7 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
+// import java.awt.event.*; -------> non ulilizzato perchè uso lamda expression
 import java.util.*;
 
 public class MyFrame extends JFrame implements Observer {
