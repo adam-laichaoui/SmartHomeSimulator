@@ -13,22 +13,24 @@ public class MyFrame extends JFrame implements Observer {
 
 
     public MyFrame() {
-        super("Casa IoT Simulator");
+        super(Costanti.TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(Costanti.X_DIM, Costanti.Y_DIM);
         setLocationRelativeTo(null);
-
+        ImageIcon logo = new ImageIcon (Costanti.IMM_PATH + "/logo.jpg");
+    	setIconImage(logo.getImage());//cambia l'icona del frame
+    	getContentPane().setBackground(new Color(Costanti.WHITE_HEX));
         panels = new HashMap<>();
         centralina = new Centralina(this);
 
         // MENU
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File");
-        JMenuItem exportItem = new JMenuItem("Esporta");
-        exportItem.addActionListener(e -> esportaDati());
-        fileMenu.add(exportItem);
-        menuBar.add(fileMenu);
-        setJMenuBar(menuBar);
+        // JMenuBar menuBar = new JMenuBar();
+        // JMenu fileMenu = new JMenu("File");
+        // JMenuItem exportItem = new JMenuItem("Esporta");
+        // exportItem.addActionListener(e -> esportaDati());
+        // fileMenu.add(exportItem);
+        // menuBar.add(fileMenu);
+         setJMenuBar( new MyMenu( this)); // cosi posso collegare mymenu a centralina 
 
         // PANNELLO PULSANTI
         JPanel controlPanel = new JPanel();
@@ -130,11 +132,11 @@ public class MyFrame extends JFrame implements Observer {
         }
     }
 
-    private void esportaDati() {
-    // 🔹 ora esporta l’intero storico dei valori
+    public void esportaDati() {
+    // ora esporta l’intero storico dei valori
     Exporter.esportaStorico(centralina.getStorico());
     JOptionPane.showMessageDialog(this, "Storico completo esportato sul Desktop.");
-}
+    }
 
 
     @Override

@@ -8,7 +8,7 @@ import java.util.*;
  */
 public class Centralina {
 
-    // 🔹 Mantiene lo storico completo dei valori di ogni sensore
+    // Mantiene lo storico completo dei valori di ogni sensore
     private final Map<String, List<DatoSensore>> storicoSensori = new HashMap<>();
 
     private Observer osservatore;
@@ -17,7 +17,7 @@ public class Centralina {
         this.osservatore = osservatore;
     }
 
-    // 🔹 Aggiunge un nuovo dato allo storico e notifica la GUI
+    //  Aggiunge un nuovo dato allo storico e notifica la GUI
     public synchronized void aggiornaDato(String id, DatoSensore dato) {
         // aggiungi il dato alla lista del sensore, creando la lista se non esiste
         storicoSensori.computeIfAbsent(id, k -> new ArrayList<>()).add(dato);
@@ -35,7 +35,7 @@ public class Centralina {
         osservatore.update(id, ultimiValori);
     }
 
-    // 🔹 Restituisce una copia di tutto lo storico dei sensori
+    // Restituisce una copia di tutto lo storico dei sensori
     public synchronized Map<String, List<DatoSensore>> getStorico() {
         Map<String, List<DatoSensore>> copia = new HashMap<>();
         for (var entry : storicoSensori.entrySet()) {
