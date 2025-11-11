@@ -7,6 +7,9 @@ public final class Costanti {
     
     public static final int X_DIM =1920;
     public static final int Y_DIM =1080;
+	public static final int DIM_W =400;
+	public static final int DIM_H =250;
+
     public static final String TITLE= "SMART HOME";
 	public static final int WHITE_HEX=0xFFFFFF ;
 	public static final int LIGHT_GREY_HEX=0x9AB3B3B3 ;

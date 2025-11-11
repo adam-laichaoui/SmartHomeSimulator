@@ -1,96 +1,100 @@
-//package main;
-
 import java.util.Random;
 
-/*
- * Superclasse di tutti i Sensori: genera il valore casuale
- * e lo invia alla Centralina.
+/**
+ * Superclasse di tutti i Sensori: genera valori casuali
+ * e li invia periodicamente alla Centralina.
  */
 public abstract class Sensore extends Thread {
 
     private static final String MSG_ERR = "Errore: ";
-	private final String id;
-    private boolean attivo = false;
-    
+
+    private final String id;
+    private boolean attivo = false; //  i sensori partono accesi di default
     private Centralina centralina;
-    
+
+    // Nome personalizzabile (per la GUI)
+    private String nomePersonalizzato;
+
+    // Costruttore
     public Sensore(String id, Centralina centralina) {
-    	this.id = id;
-    	this.centralina = centralina;
+        this.id = id;
+        this.centralina = centralina;
     }
 
-	public abstract double generaValore();
-    
+    // Metodi astratti da implementare nei sensori specifici
+    public abstract double generaValore();
+
     public abstract DatoSensore generaDato();
-    
+
+    // Invia il dato generato alla centralina
     private void inviaDati() {
-    	centralina.aggiornaDato(id, generaDato());
+        if (centralina != null) {
+            centralina.aggiornaDato(id, generaDato());
+        }
     }
-    
+
+    /**
+     * Thread principale del sensore: genera e invia dati
+     * finché è attivo. Se viene "spento", si mette in attesa
+     * finché non viene riacceso.
+     */
     @Override
-    public synchronized void run() {
-        while (true) {
-            if (!isAcceso()) {
-                try {
-                    synchronized (this) {
-                        wait();
+    public void run() {
+        Random random = new Random();
+
+        while (!Thread.currentThread().isInterrupted()) {
+            synchronized (this) {
+                while (!attivo) {
+                    try {
+                        wait(); // 🔹 sospende il thread finché non viene riacceso
+                    } catch (InterruptedException e) {
+                        System.out.println(MSG_ERR + "interrotto: " + e.getMessage());
+                        return; // esce pulitamente
                     }
-                } catch (InterruptedException e) {
-                    System.out.println(MSG_ERR + e.getMessage());
-                    break;
                 }
             }
-            
-            inviaDati();
-            
-            Random random = new Random();
 
+            // genera e invia il dato
+            inviaDati();
+
+            // attesa casuale fra 800 e 1800 ms
             int randomSleep = 800 + random.nextInt(1001);
             try {
                 Thread.sleep(randomSleep);
             } catch (InterruptedException e) {
-                System.out.println(MSG_ERR + e.getMessage());
-                break;
+                System.out.println(MSG_ERR + "sleep interrotto: " + e.getMessage());
+                return; // esce dal thread in modo sicuro
             }
         }
     }
-    
-	/*public void accendi() {
-    	attivo = true;
-    }*/
 
-    // modificato per far funzionare la gui 
-
-    public void accendi() {
-    attivo = true;
-    synchronized (this) {
-        notify();   
-    }
-}
-
-
-    public void spegni() {
-    	attivo = false;
-    }
-    
-    public boolean isAcceso() {
-    	return attivo;
+    // ✅ Accende il sensore e risveglia il thread
+    public synchronized void accendi() {
+        attivo = true;
+        notifyAll(); // risveglia il thread se era in attesa
     }
 
-    //serve per la gui
-public String getIdSensore() {
-    return id;
-}
+    // ✅ Spegne il sensore
+    public synchronized void spegni() {
+        attivo = false;
+    }
 
-// idea per personalizzare da tastiera il nome del sensore 
-private String nomePersonalizzato;
+    // Ritorna lo stato attuale
+    public synchronized boolean isAcceso() {
+        return attivo;
+    }
 
-public void setNomePersonalizzato(String nome) {
-    this.nomePersonalizzato = nome;
-}
+    // ✅ Getter e setter per GUI
 
-public String getNomePersonalizzato() {
-    return nomePersonalizzato;
-}
+    public String getIdSensore() {
+        return id;
+    }
 
+    public void setNomePersonalizzato(String nome) {
+        this.nomePersonalizzato = nome;
+    }
+
+    public String getNomePersonalizzato() {
+        return nomePersonalizzato != null ? nomePersonalizzato : id;
+    }
 }

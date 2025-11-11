@@ -19,14 +19,14 @@ public class SplashScreen extends JWindow {
         // Logo o titolo (puoi anche caricare un'immagine)
         JLabel logoLabel = new JLabel(Costanti.TITLE, SwingConstants.CENTER);
         logoLabel.setFont(new Font(Costanti.TITLE_FONT, Font.BOLD, Costanti.DIM_TITLE_TEXT));
-        logoLabel.setForeground(new Color(Costanti.COLOR1_HEX));
+        logoLabel.setForeground(Color.WHITE);
           
-        System.out.println("DEBUG PATH -> " + getClass().getResource(Costanti.IMM_PATH + "/logopiccolo.jpg"));
+        //System.out.println("DEBUG PATH -> " + getClass().getResource(Costanti.IMM_PATH + "/logopiccolo.jpg"));
 
         // Carica il logo (assicurati che logo.png sia in /resources o nel classpath)
         ImageIcon logoIcon = null;
         try {
-            logoIcon = new ImageIcon(getClass().getResource(Costanti.IMM_PATH + "/logopiccolo.jpg")); //  percorso relativo alle risorse
+            logoIcon = new ImageIcon(getClass().getResource(Costanti.IMM_PATH + "//logopiccolo.jpg")); //  percorso relativo alle risorse
         } catch (Exception e) {
             System.out.println("Impossibile caricare il logo: " + e.getMessage());
         }
@@ -37,7 +37,8 @@ public class SplashScreen extends JWindow {
         } else {
             // testo se non trova l’immagine
             logoLabel = new JLabel(Costanti.TITLE, SwingConstants.CENTER);
-            logoLabel.setFont(new Font(Costanti.SECONDO_FONT, Font.BOLD, 28));
+            logoLabel.setFont(new Font(Costanti.TITLE_FONT, Font.BOLD, Costanti.DIM_TITLE_TEXT));
+        logoLabel.setForeground(Color.WHITE);
         }
 
         panel.add(logoLabel, BorderLayout.CENTER);
@@ -45,11 +46,11 @@ public class SplashScreen extends JWindow {
         // Testo in basso
         JLabel loading = new JLabel(Costanti.AVVIO_TXT, SwingConstants.CENTER);
         loading.setFont(new Font(Costanti.SECONDO_FONT, Font.PLAIN, 14));
-        loading.setForeground(Color.DARK_GRAY);
+        loading.setForeground(new Color(Costanti.LIGHT_GREY_HEX));
         panel.add(loading, BorderLayout.SOUTH);
 
         getContentPane().add(panel);
-        setSize(400, 250);
+        setSize(Costanti.DIM_W, Costanti.DIM_H);
         setLocationRelativeTo(null);
     }
 
@@ -63,7 +64,7 @@ public class SplashScreen extends JWindow {
         dispose();                // chiude lo splash
         frame.setVisible(true);   // mostra la GUI principale già creata
     });
-    timer.setRepeats(false);      // ✅ esegui solo una volta
+    timer.setRepeats(false);      //  esegui solo una volta
     timer.start();
 }
 
