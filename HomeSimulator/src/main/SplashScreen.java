@@ -1,4 +1,4 @@
-package main;
+//package main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +20,25 @@ public class SplashScreen extends JWindow {
         JLabel logoLabel = new JLabel(Costanti.TITLE, SwingConstants.CENTER);
         logoLabel.setFont(new Font(Costanti.TITLE_FONT, Font.BOLD, Costanti.DIM_TITLE_TEXT));
         logoLabel.setForeground(new Color(Costanti.COLOR1_HEX));
+          
+        System.out.println("DEBUG PATH -> " + getClass().getResource(Costanti.IMM_PATH + "/logopiccolo.jpg"));
+
+        // Carica il logo (assicurati che logo.png sia in /resources o nel classpath)
+        ImageIcon logoIcon = null;
+        try {
+            logoIcon = new ImageIcon(getClass().getResource(Costanti.IMM_PATH + "/logopiccolo.jpg")); //  percorso relativo alle risorse
+        } catch (Exception e) {
+            System.out.println("Impossibile caricare il logo: " + e.getMessage());
+        }
+
+        //JLabel logoLabel;
+        if (logoIcon != null) {
+            logoLabel = new JLabel(logoIcon, SwingConstants.CENTER);
+        } else {
+            // testo se non trova l’immagine
+            logoLabel = new JLabel(Costanti.TITLE, SwingConstants.CENTER);
+            logoLabel.setFont(new Font(Costanti.SECONDO_FONT, Font.BOLD, 28));
+        }
 
         panel.add(logoLabel, BorderLayout.CENTER);
 
@@ -30,7 +49,7 @@ public class SplashScreen extends JWindow {
         panel.add(loading, BorderLayout.SOUTH);
 
         getContentPane().add(panel);
-        setSize(400, 250);
+        setSize(1000, 1000);
         setLocationRelativeTo(null);
     }
 

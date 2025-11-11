@@ -1,4 +1,4 @@
-package main;
+//package main;
 
 import java.util.*;
 
@@ -44,7 +44,7 @@ public class Centralina {
         return copia;
     }
 
-    // 🔹 Restituisce solo gli ultimi valori (per compatibilità)
+    // Restituisce solo gli ultimi valori (per compatibilità)
     public synchronized Map<String, DatoSensore> getUltimiValori() {
         Map<String, DatoSensore> mappa = new HashMap<>();
         for (var entry : storicoSensori.entrySet()) {
