@@ -24,7 +24,7 @@ public class ControlPanel extends JPanel {
     public ControlPanel(MyFrame frame) {
         setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        // 🔹 Bordo con titolo personalizzato
+        // Bordo con titolo personalizzato
         TitledBorder border = BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(Color.WHITE.brighter(), 5),   // bordo bianco chiaro
             " CONTROLLI SENSORI ",                                      // testo del titolo
@@ -35,12 +35,12 @@ public class ControlPanel extends JPanel {
         );
         setBorder(border);
 
-        // 🔹 Pulsanti principali
+        // Pulsanti principali
         JButton generaBtn = new JButton("Genera valori");
         JButton freezeBtn = new JButton("Freeze");
         JButton nuovoSensoreBtn = new JButton("Nuovo sensore");
 
-        // 🔹 Stile dei pulsanti
+        //  Stile dei pulsanti
         Font btnFont = new Font(Costanti.SECONDO_FONT, Font.BOLD, 13);
         for (JButton b : List.of(generaBtn, freezeBtn, nuovoSensoreBtn)) {
             b.setFocusPainted(false);
@@ -52,10 +52,10 @@ public class ControlPanel extends JPanel {
             b.setContentAreaFilled(true);
         }
 
-        // 🔹 Azione "Genera valori"
+        //  Azione "Genera valori"
         generaBtn.addActionListener(e -> frame.accendiSensori());
 
-        // 🔹 Azione "Freeze / Riprendi"
+        // Azione "Freeze / Riprendi"
         freezeBtn.addActionListener(e -> {
             if (!freezeAttivo) {
                 frame.spegniSensori();
@@ -74,10 +74,10 @@ public class ControlPanel extends JPanel {
             }
         });
 
-        // 🔹 Azione "Nuovo sensore"
+        // Azione "Nuovo sensore"
         nuovoSensoreBtn.addActionListener(e -> frame.creaNuovoSensore());
 
-        // 🔹 Aggiunta pulsanti al pannello
+        // Aggiunta pulsanti al pannello
         add(generaBtn);
         add(freezeBtn);
         add(nuovoSensoreBtn);
@@ -96,14 +96,14 @@ public class ControlPanel extends JPanel {
         int w = getWidth();
         int h = getHeight();
 
-        // 🌈 Gradiente base (verticale, dall'alto verso il basso)
+        // Gradiente base (verticale, dall'alto verso il basso)
         Color startColor = new Color(Costanti.COLOR1_HEX).brighter();
         Color endColor = new Color(Costanti.COLOR2_HEX).darker();
         GradientPaint base = new GradientPaint(0, 0, startColor, 0, h, endColor);
         g2d.setPaint(base);
         g2d.fillRect(0, 0, w, h);
 
-        // ✨ Effetto glossy (riflesso bianco semi-trasparente nella parte superiore)
+        //  Effetto glossy (riflesso bianco semi-trasparente nella parte superiore)
         GradientPaint gloss = new GradientPaint(
             0, 0, new Color(255, 255, 255, 100),   // bianco semi-trasparente
             0, h * 0.4f, new Color(255, 255, 255, 0) // svanisce a circa 40% dell'altezza

@@ -26,30 +26,30 @@ public class SensorPanel extends JPanel {
         this.sensore = s;
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        // 🔹 Bordo con titolo (ID sensore)
+        //  Bordo con titolo (ID sensore)
         setBorder(BorderFactory.createTitledBorder(
             s.getClass().getSimpleName() + " (" + s.getIdSensore() + ")"
         ));
 
-        // 🔹 Etichetta tipo sensore
+        //  Etichetta tipo sensore
         JLabel tipoLabel = new JLabel("Tipo: " + s.getTipo().getDescrizione());
         tipoLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
 
         // Colore uniforme per leggibilità su sfondo scuro
         tipoLabel.setForeground(Color.WHITE);
 
-        // 🔹 Nome personalizzato
+        //  Nome personalizzato
         nomeLabel = new JLabel("Nome: " +
             (s.getNomePersonalizzato() != null ? s.getNomePersonalizzato() : "N/D"));
         nomeLabel.setForeground(Color.WHITE);
 
-        // 🔹 Stato e valore
+        //  Stato e valore
         statoLabel = new JLabel("Stato: " + (s.isAcceso() ? "ON" : "OFF"));
         statoLabel.setForeground(Color.WHITE);
         valoreLabel = new JLabel("Valore: N/D");
         valoreLabel.setForeground(Color.WHITE);
 
-        // 🔹 Pulsante accensione
+        //  Pulsante accensione
         powerBtn = new JButton(s.isAcceso() ? "Spegni" : "Accendi");
         powerBtn.addActionListener(e -> togglePower());
         powerBtn.setFocusPainted(false);
@@ -58,7 +58,7 @@ public class SensorPanel extends JPanel {
         powerBtn.setOpaque(true);
         powerBtn.setBorder(BorderFactory.createEmptyBorder(4, 10, 4, 10));
 
-        // 🔹 Aggiunta componenti
+        //  Aggiunta componenti
         add(tipoLabel);
         add(nomeLabel);
         add(statoLabel);
@@ -100,7 +100,7 @@ public class SensorPanel extends JPanel {
     }
 
     /**
-     * 🎨 Effetto grafico: gradiente + glossy.
+     * Effetto grafico: gradiente + glossy.
      */
     @Override
     protected void paintComponent(Graphics g) {
@@ -111,14 +111,14 @@ public class SensorPanel extends JPanel {
         int w = getWidth();
         int h = getHeight();
 
-        // 🌈 Gradiente base (verticale)
+        //  Gradiente base (verticale)
         Color startColor = new Color(Costanti.COLOR1_HEX).brighter();
         Color endColor = new Color(Costanti.COLOR2_HEX).darker();
         GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, h, endColor);
         g2d.setPaint(gradient);
         g2d.fillRect(0, 0, w, h);
 
-        // ✨ Effetto glossy (riflesso traslucido nella parte alta)
+        //  Effetto glossy (riflesso traslucido nella parte alta)
         GradientPaint gloss = new GradientPaint(
             0, 0, new Color(255, 255, 255, 80), // bianco semi-trasparente
             0, h * 0.4f, new Color(255, 255, 255, 0)

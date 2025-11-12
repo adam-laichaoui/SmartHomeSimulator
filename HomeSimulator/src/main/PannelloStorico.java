@@ -27,7 +27,7 @@ public class PannelloStorico extends JPanel {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(Costanti.DIM_W, 0));
 
-        // 🔹 Bordo con titolo personalizzato
+        //  Bordo con titolo personalizzato
         setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(new Color(Costanti.LIGHT_GREY_HEX)),
             " Storico Dati Sensori",
@@ -37,7 +37,7 @@ public class PannelloStorico extends JPanel {
             Color.WHITE
         ));
 
-        // 🔹 JTextArea con gradiente interno e testo trasparente
+        //  JTextArea con gradiente interno e testo trasparente
         areaTesto = new JTextArea() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -47,14 +47,14 @@ public class PannelloStorico extends JPanel {
                 int w = getWidth();
                 int h = getHeight();
 
-                // 🌈 Gradiente di base interno
+                //  Gradiente di base interno
                 Color startColor = new Color(Costanti.COLOR1_HEX).brighter();
                 Color endColor = new Color(Costanti.COLOR2_HEX).darker();
                 GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, h, endColor);
                 g2d.setPaint(gradient);
                 g2d.fillRect(0, 0, w, h);
 
-                // ✨ Effetto glossy (parte alta semi-trasparente)
+                //  Effetto glossy (parte alta semi-trasparente)
                 GradientPaint gloss = new GradientPaint(
                     0, 0, new Color(255, 255, 255, 90),
                     0, h * 0.4f, new Color(255, 255, 255, 0)
@@ -113,14 +113,14 @@ public class PannelloStorico extends JPanel {
         int w = getWidth();
         int h = getHeight();
 
-        // 🌈 Gradiente di base
+        //  Gradiente di base
         Color startColor = new Color(Costanti.COLOR1_HEX).brighter();
         Color endColor = new Color(Costanti.COLOR2_HEX).darker();
         GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, h, endColor);
         g2d.setPaint(gradient);
         g2d.fillRect(0, 0, w, h);
 
-        // ✨ Effetto glossy superiore
+        //  Effetto glossy superiore
         GradientPaint gloss = new GradientPaint(
             0, 0, new Color(255, 255, 255, 80),
             0, h * 0.35f, new Color(255, 255, 255, 0)

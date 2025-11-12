@@ -20,11 +20,11 @@ public class MyMenu extends JMenuBar {
     public MyMenu(MyFrame frame) {
         super();
 
-        // 🔹 Dimensioni e font
+        //  Dimensioni e font
         setPreferredSize(new Dimension(Costanti.DIM_W, 35));
         Font menuFont = new Font(Costanti.SECONDO_FONT, Font.BOLD, 14);
 
-        // 🔹 Menu "File"
+        //  Menu "File"
         JMenu fileMenu = new JMenu("File");
 
         JMenuItem exportItem = new JMenuItem("Esporta");
@@ -46,10 +46,10 @@ public class MyMenu extends JMenuBar {
         });
         fileMenu.add(exitItem);
 
-        // 🔹 Aggiunge il menu "File" alla barra
+        //  Aggiunge il menu "File" alla barra
         add(fileMenu);
 
-        // 🔹 Menu "Aiuto"
+        //  Menu "Aiuto"
         JMenu helpMenu = new JMenu("Aiuto");
 
         JMenuItem infoItem = new JMenuItem("Informazioni");
@@ -61,7 +61,7 @@ public class MyMenu extends JMenuBar {
         ));
         helpMenu.add(infoItem);
 
-        // 🔹 Font uniforme su tutta la barra
+        //  Font uniforme su tutta la barra
         setFont(menuFont);
         fileMenu.setFont(menuFont);
         helpMenu.setFont(menuFont);
@@ -69,7 +69,7 @@ public class MyMenu extends JMenuBar {
         exitItem.setFont(menuFont);
         infoItem.setFont(menuFont);
 
-        // 🔹 Aggiunge il menu "Aiuto"
+        //  Aggiunge il menu "Aiuto"
         add(helpMenu);
     }
 
@@ -86,7 +86,7 @@ public class MyMenu extends JMenuBar {
         int w = getWidth();
         int h = getHeight();
 
-        // 🌈 Gradiente base (verticale, più morbido e tridimensionale)
+        //  Gradiente base (verticale, più morbido e tridimensionale)
         Color startColor = new Color(Costanti.COLOR2_HEX).darker();
         Color midColor = new Color(Costanti.COLOR2_HEX);
         Color endColor = new Color(Costanti.COLOR2_HEX).brighter();
@@ -100,7 +100,7 @@ public class MyMenu extends JMenuBar {
         g2d.setPaint(bottomGradient);
         g2d.fillRect(0, h / 2, w, h / 2);
 
-        // ✨ Effetto glossy nella parte superiore
+        //  Effetto glossy nella parte superiore
         GradientPaint gloss = new GradientPaint(
             0, 0, new Color(255, 255, 255, 100),    // bianco semi-trasparente
             0, h * 0.6f, new Color(255, 255, 255, 0) // svanisce al 60% dell’altezza

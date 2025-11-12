@@ -20,12 +20,12 @@ import javax.swing.Timer;
 public class SplashScreen extends JWindow {
 
     public SplashScreen() {
-        // 🔹 Pannello principale con effetto gradiente + glossy
+        //  Pannello principale con effetto gradiente + glossy
         GradientPanel panel = new GradientPanel();
         panel.setLayout(new BorderLayout());
         setContentPane(panel);
 
-        // 🔹 Tentativo di caricare il logo dal classpath
+        //  Tentativo di caricare il logo dal classpath
         ImageIcon logoIcon = null;
         try {
             // Percorso corretto nel classpath (non usare "src/main/resources")
@@ -41,7 +41,7 @@ public class SplashScreen extends JWindow {
             System.err.println("Errore nel caricamento del logo: " + e.getMessage());
         }
 
-        // 🔹 Label centrale: immagine o testo alternativo
+        //  Label centrale: immagine o testo alternativo
         JLabel logoLabel;
         if (logoIcon != null) {
             logoLabel = new JLabel(logoIcon, SwingConstants.CENTER);
@@ -52,13 +52,13 @@ public class SplashScreen extends JWindow {
         }
         panel.add(logoLabel, BorderLayout.CENTER);
 
-        // 🔹 Label inferiore ("Caricamento...")
+        //  Label inferiore ("Caricamento...")
         JLabel loading = new JLabel(Costanti.AVVIO_TXT, SwingConstants.CENTER);
         loading.setFont(new Font(Costanti.SECONDO_FONT, Font.ITALIC, 14));
         loading.setForeground(new Color(Costanti.LIGHT_GREY_HEX));
         panel.add(loading, BorderLayout.SOUTH);
 
-        // 🔹 Impostazioni finestra
+        //  Impostazioni finestra
         setSize(Costanti.DIM_W, Costanti.DIM_H);
         setLocationRelativeTo(null);
     }
@@ -89,7 +89,7 @@ public class SplashScreen extends JWindow {
             // Attiva antialiasing per bordi più morbidi
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-            // 🔹 Gradiente base diagonale (↘)
+            //  Gradiente base diagonale (↘)
             Color start = new Color(Costanti.COLOR2_HEX).darker();
             Color end = new Color(Costanti.COLOR2_HEX).brighter();
             GradientPaint baseGradient = new GradientPaint(0, 0, start, getWidth(), getHeight(), end);
