@@ -1,7 +1,12 @@
-//package main;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 
 public class SensorPanel extends JPanel {
     private Sensore sensore;

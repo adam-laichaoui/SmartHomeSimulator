@@ -11,5 +11,8 @@
 
 #sistemare e vedere calsse costante
 
+#pulire codice 
+
+#serve javadoc?
 
 #?DISPOITIVI?

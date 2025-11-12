@@ -1,17 +1,27 @@
 //package main;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
-
-import java.awt.*;
-// import java.awt.event.*; -------> non ulilizzato perchè uso lamda expression
-import java.util.*;
 
 public class MyFrame extends JFrame implements Observer {
     private Centralina centralina;
     private JPanel sensorsPanel;
     private Map<String, SensorPanel> panels;
-    private boolean freezeAttivo = false; // indica se i sensori sono attualmente in pausa
+    //private boolean freezeAttivo = false; // indica se i sensori sono attualmente in pausa
     private PannelloStorico pannelloStorico;
 
 
@@ -29,42 +39,15 @@ public class MyFrame extends JFrame implements Observer {
         //MENU
          setJMenuBar( new MyMenu( this)); // cosi posso collegare mymenu a centralina 
 
-        // PANNELLO PULSANTI
-        JPanel controlPanel = new JPanel();
-        JButton generaBtn = new JButton("Genera valori");
-        JButton freezeBtn = new JButton("Freeze");
-        JButton nuovoSensoreBtn = new JButton("Nuovo sensore");
+        // PANNELLO PULSANTI (spostato in classe separata)
+        add(new ControlPanel(this), BorderLayout.NORTH);
 
-        generaBtn.addActionListener(e -> accendiSensori());
-        freezeBtn.addActionListener(e -> {
-            if (!freezeAttivo) {
-                // Se il freeze non è attivo → spegne tutti i sensori
-                spegniSensori();
-                freezeAttivo = true;
-                freezeBtn.setText("Riprendi");
-                JOptionPane.showMessageDialog(this, "Tutti i sensori sono stati messi in pausa.", 
-                        "Freeze", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                // Se il freeze è attivo → riaccende tutti i sensori
-                accendiSensori();
-                freezeAttivo = false;
-                freezeBtn.setText("Freeze");
-                JOptionPane.showMessageDialog(this, "Tutti i sensori sono stati riattivati.", 
-                        "Freeze disattivato", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
-        nuovoSensoreBtn.addActionListener(e -> creaNuovoSensore());
-
-        controlPanel.add(generaBtn);
-        controlPanel.add(freezeBtn);
-        controlPanel.add(nuovoSensoreBtn);
 
         // AREA SENSORS
         sensorsPanel = new JPanel();
         sensorsPanel.setLayout(new BoxLayout(sensorsPanel, BoxLayout.Y_AXIS));
         JScrollPane scrollPane = new JScrollPane(sensorsPanel);
 
-        add(controlPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
 
         // SENSORS INIZIALI
@@ -88,7 +71,7 @@ public class MyFrame extends JFrame implements Observer {
         s.start();
     }
 
-    private void creaNuovoSensore() {
+    protected void creaNuovoSensore() {
     JPanel panel = new JPanel(new GridLayout(2, 2, 5, 5));
     JLabel labelTipo = new JLabel("Tipo di sensore:");
     JLabel labelNome = new JLabel("Nome personalizzato:");
@@ -129,19 +112,21 @@ public class MyFrame extends JFrame implements Observer {
             aggiungiSensore(nuovo);
         }
     }
-}
+}      //uso protected perchè possa accedervi anche la calsse control pannel 
 
-    private void accendiSensori() {
+
+    protected void accendiSensori() {
         for (SensorPanel p : panels.values()) {
             p.turnOnSensor();
         }
-    }
+    }     //uso protected perchè possa accedervi anche la calsse control pannel 
 
-    private void spegniSensori() {
+
+    protected void spegniSensori() {
         for (SensorPanel p : panels.values()) {
             p.turnOffSensor();
         }
-    }
+    } //uso protected perchè possa accedervi anche la calsse control pannel 
 
     public void esportaDati() {
     // ora esporta l’intero storico dei valori
