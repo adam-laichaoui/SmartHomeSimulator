@@ -14,7 +14,7 @@ public final class Costanti {
 	public static final int DIM_TITLE_TEXT = 45;
 	public static final String TITLE_FONT = "Arial";
 
-	public static final String SECONDO_FONT = "SansSerif";
+	public static final String SECONDO_FONT = "SanSerif";
 
 
 	public static final int LIGHT_GREY_HEX=0x9AB3B3B3 ;
@@ -25,7 +25,6 @@ public final class Costanti {
 	public static final String IMM_PATH = "src\\\\main\\\\resources\\\\images";
 	public static final String VERSIONE = "VERISONE 1.0";
 	public static final String AVVIO_TXT = "Avvio in corso..";
-	public static final int SPLESHSCREEN_TIME = 4;
-
+	public static final int SPLESHSCREEN_TIME =3;
 
 }

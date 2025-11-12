@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GradientPaint;
@@ -39,10 +40,14 @@ public class ControlPanel extends JPanel {
         JButton generaBtn = new JButton("Genera valori");
         JButton freezeBtn = new JButton("Freeze");
         JButton nuovoSensoreBtn = new JButton("Nuovo sensore");
+                
+        // fissare la dimensione dei bottoni per non farla camiare se cambia il testo meglio così che usaree un gridlayout
+        Dimension maxSize = new Dimension(300, 30);
 
         //  Stile dei pulsanti
         Font btnFont = new Font(Costanti.SECONDO_FONT, Font.BOLD, 13);
         for (JButton b : List.of(generaBtn, freezeBtn, nuovoSensoreBtn)) {
+            b.setPreferredSize(maxSize);
             b.setFocusPainted(false);
             b.setFont(btnFont);
             b.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15)); // padding interno
@@ -50,6 +55,7 @@ public class ControlPanel extends JPanel {
             b.setBackground(Color.LIGHT_GRAY.brighter());
             b.setBorderPainted(false);
             b.setContentAreaFilled(true);
+            
         }
 
         //  Azione "Genera valori"

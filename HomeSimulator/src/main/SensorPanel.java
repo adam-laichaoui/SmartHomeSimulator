@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GradientPaint;
@@ -10,6 +11,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+
 
 /**
  * Pannello che rappresenta un singolo sensore con stato, valore e controlli.
@@ -26,9 +29,14 @@ public class SensorPanel extends JPanel {
         this.sensore = s;
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        //  Bordo con titolo (ID sensore)
+        //  Bordo con titolo (ID sensore) va scritto così perchè lunico metodo inoverload possibile da usare per definire colore e font
         setBorder(BorderFactory.createTitledBorder(
-            s.getClass().getSimpleName() + " (" + s.getIdSensore() + ")"
+            BorderFactory.createLineBorder(Color.WHITE, 2),
+            s.getClass().getSimpleName() + " (" + s.getIdSensore() + ")",
+            TitledBorder.LEFT,                         // allineamento orizzontale
+            TitledBorder.TOP,                           // allineamento verticale
+            new Font(Costanti.SECONDO_FONT, Font.BOLD, 13),                // font del titolo
+            Color.WHITE                         
         ));
 
         //  Etichetta tipo sensore
@@ -50,7 +58,12 @@ public class SensorPanel extends JPanel {
         valoreLabel.setForeground(Color.WHITE);
 
         //  Pulsante accensione
+        // fissare la dimensione dei bottoni per non farla camiare se cambia il testo meglio così che usaree un gridlayout
+
+        Dimension maxSize = new Dimension(60, 25);
+
         powerBtn = new JButton(s.isAcceso() ? "Spegni" : "Accendi");
+        powerBtn.setPreferredSize(maxSize);
         powerBtn.addActionListener(e -> togglePower());
         powerBtn.setFocusPainted(false);
         powerBtn.setBackground(Color.LIGHT_GRAY.brighter());

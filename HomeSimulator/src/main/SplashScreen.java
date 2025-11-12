@@ -5,8 +5,6 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.net.URL;
-import javax.swing.ImageIcon;
 import javax.swing.JWindow;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,36 +23,15 @@ public class SplashScreen extends JWindow {
         panel.setLayout(new BorderLayout());
         setContentPane(panel);
 
-        //  Tentativo di caricare il logo dal classpath
-        ImageIcon logoIcon = null;
-        try {
-            // Percorso corretto nel classpath (non usare "src/main/resources")
-            URL logoURL = getClass().getResource("/images/logopiccolo.jpg");
-
-            if (logoURL != null) {
-                logoIcon = new ImageIcon(logoURL);
-                System.out.println("Logo caricato da: " + logoURL);
-            } else {
-                System.err.println("Logo non trovato nel classpath!");
-            }
-        } catch (Exception e) {
-            System.err.println("Errore nel caricamento del logo: " + e.getMessage());
-        }
-
-        //  Label centrale: immagine o testo alternativo
         JLabel logoLabel;
-        if (logoIcon != null) {
-            logoLabel = new JLabel(logoIcon, SwingConstants.CENTER);
-        } else {
-            logoLabel = new JLabel(Costanti.TITLE, SwingConstants.CENTER);
-            logoLabel.setFont(new Font(Costanti.TITLE_FONT, Font.BOLD, Costanti.DIM_TITLE_TEXT));
-            logoLabel.setForeground(Color.WHITE);
-        }
+        logoLabel = new JLabel(Costanti.TITLE, SwingConstants.CENTER);
+        logoLabel.setFont(new Font(Costanti.TITLE_FONT, Font.BOLD, Costanti.DIM_TITLE_TEXT));
+        logoLabel.setForeground(Color.WHITE);
         panel.add(logoLabel, BorderLayout.CENTER);
 
         //  Label inferiore ("Caricamento...")
         JLabel loading = new JLabel(Costanti.AVVIO_TXT, SwingConstants.CENTER);
-        loading.setFont(new Font(Costanti.SECONDO_FONT, Font.ITALIC, 14));
+        loading.setFont(new Font(Costanti.SECONDO_FONT, Font.ITALIC, 16));
         loading.setForeground(new Color(Costanti.LIGHT_GREY_HEX));
         panel.add(loading, BorderLayout.SOUTH);
 

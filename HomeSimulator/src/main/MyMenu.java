@@ -23,7 +23,7 @@ public class MyMenu extends JMenuBar {
         //  Dimensioni e font
         setPreferredSize(new Dimension(Costanti.DIM_W, 35));
         Font menuFont = new Font(Costanti.SECONDO_FONT, Font.BOLD, 14);
-
+;
         //  Menu "File"
         JMenu fileMenu = new JMenu("File");
 
@@ -64,7 +64,9 @@ public class MyMenu extends JMenuBar {
         //  Font uniforme su tutta la barra
         setFont(menuFont);
         fileMenu.setFont(menuFont);
+        fileMenu.setForeground(Color.WHITE);
         helpMenu.setFont(menuFont);
+        helpMenu.setForeground(Color.WHITE);
         exportItem.setFont(menuFont);
         exitItem.setFont(menuFont);
         infoItem.setFont(menuFont);
