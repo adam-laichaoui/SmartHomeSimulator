@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.List;
@@ -8,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
 
 
 /**
@@ -20,12 +22,21 @@ public class PannelloStorico extends JPanel {
 
     public PannelloStorico() {
         setLayout(new BorderLayout());
-        setBorder(BorderFactory.createTitledBorder(" Storico Dati Sensori"));
+       setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(Costanti.LIGHT_GREY_HEX)), 
+                                           " Storico Dati Sensori",
+                                           TitledBorder.LEFT, 
+                                           TitledBorder.TOP, 
+                                           new Font(Costanti.SECONDO_FONT, Font.BOLD, 14), 
+                                           Color.WHITE));
+
         setPreferredSize(new Dimension(Costanti.DIM_W, 0)); // Larghezza fissa laterale
+        setBackground(new Color(Costanti.COLOR1_HEX));
 
         areaTesto = new JTextArea();
         areaTesto.setEditable(false);
-        areaTesto.setFont(new Font(Costanti.SECONDO_FONT, Font.PLAIN, 12));
+        areaTesto.setFont(new Font(Costanti.TITLE_FONT, Font.BOLD, 12));
+        areaTesto.setBackground(new Color(Costanti.COLOR2_HEX));
+        areaTesto.setForeground(Color.WHITE);
 
         JScrollPane scroll = new JScrollPane(areaTesto);
         add(scroll, BorderLayout.CENTER);
@@ -39,7 +50,9 @@ public class PannelloStorico extends JPanel {
             sb.append("Sensore ").append(id).append("\n");
             List<DatoSensore> lista = storico.get(id);
             for (DatoSensore dato : lista) {
+                sb.append("══════════════════════════════════════\n");
                 sb.append("  • ").append(dato.toString()).append("\n");
+                sb.append("══════════════════════════════════════\n");
             }
             sb.append("\n");
         }

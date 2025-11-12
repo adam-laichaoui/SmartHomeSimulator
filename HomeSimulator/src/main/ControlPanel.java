@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -7,16 +8,17 @@ public class ControlPanel extends JPanel {
     private boolean freezeAttivo = false; // stato locale del freeze
 
     public ControlPanel(MyFrame frame) {
-        setLayout(new FlowLayout(FlowLayout.LEFT));
-
+        setLayout(new FlowLayout(FlowLayout.CENTER));
+        setBackground(new Color(Costanti.COLOR1_HEX));
+        
         JButton generaBtn = new JButton("Genera valori");
         JButton freezeBtn = new JButton("Freeze");
         JButton nuovoSensoreBtn = new JButton("Nuovo sensore");
 
-        // 🔹 Pulsante "Genera valori"
+        //  Pulsante "Genera valori"
         generaBtn.addActionListener(e -> frame.accendiSensori());
 
-        // 🔹 Pulsante "Freeze / Riprendi"
+        // Pulsante "Freeze / Riprendi"
         freezeBtn.addActionListener(e -> {
             if (!freezeAttivo) {
                 frame.spegniSensori();
@@ -35,7 +37,7 @@ public class ControlPanel extends JPanel {
             }
         });
 
-        // 🔹 Pulsante "Nuovo sensore"
+        // Pulsante "Nuovo sensore"
         nuovoSensoreBtn.addActionListener(e -> frame.creaNuovoSensore());
 
         // Aggiunta dei pulsanti al pannello

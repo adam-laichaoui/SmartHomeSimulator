@@ -30,16 +30,16 @@ public class MyFrame extends JFrame implements Observer {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(Costanti.X_DIM, Costanti.Y_DIM);
         setLocationRelativeTo(null);
-        ImageIcon logo = new ImageIcon ("src\\main\\resources\\images\\logo.jpg"); 
+        ImageIcon logo = new ImageIcon (Costanti.IMM_PATH + "\\logo.jpg"); 
     	setIconImage(logo.getImage());//cambia l'icona del frame
-    	getContentPane().setBackground(new Color(Costanti.WHITE_HEX));
+    	getContentPane().setBackground(Color.WHITE);
         panels = new HashMap<>();
         centralina = new Centralina(this);
 
         //MENU
          setJMenuBar( new MyMenu( this)); // cosi posso collegare mymenu a centralina 
 
-        // PANNELLO PULSANTI (spostato in classe separata)
+        // PANNELLO PULSANTI 
         add(new ControlPanel(this), BorderLayout.NORTH);
 
 

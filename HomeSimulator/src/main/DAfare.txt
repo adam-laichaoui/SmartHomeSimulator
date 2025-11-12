@@ -1,7 +1,3 @@
-# creare pannello logger a destra 
-
-#sistemare nelle calssi i pannel per my frame più corto 
-
 #  migliorare esterica 
 
 #@Adam @Simone scrivete qui se devo fare altro grazie 
