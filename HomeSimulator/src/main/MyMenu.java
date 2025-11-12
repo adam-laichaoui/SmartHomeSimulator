@@ -55,7 +55,7 @@ public class MyMenu extends JMenuBar {
         JMenuItem infoItem = new JMenuItem("Informazioni");
         infoItem.addActionListener(e -> JOptionPane.showMessageDialog(
             frame,
-            Costanti.TITLE + "\n" + Costanti.VERSIONE + "\nSimulatore di sensori IoT per la casa intelligente.",
+            Costanti.TITLE + "\n" + Costanti.VERSIONE + "\n"+ " AUTORI: \n " +  Costanti.AUTORI +"\nSimulatore di sensori IoT per la casa intelligente.",
             "Informazioni",
             JOptionPane.INFORMATION_MESSAGE
         ));

@@ -24,6 +24,7 @@ public final class Costanti {
 	
 	public static final String IMM_PATH = "src\\\\main\\\\resources\\\\images";
 	public static final String VERSIONE = "VERISONE 1.0";
+	public static final String AUTORI = "Adam Laichoui - Francesco Marchetti -Simone Venturelli";
 	public static final String AVVIO_TXT = "Avvio in corso..";
 	public static final int SPLESHSCREEN_TIME =3;
 

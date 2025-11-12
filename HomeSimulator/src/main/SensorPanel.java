@@ -60,7 +60,7 @@ public class SensorPanel extends JPanel {
         //  Pulsante accensione
         // fissare la dimensione dei bottoni per non farla camiare se cambia il testo meglio così che usaree un gridlayout
 
-        Dimension maxSize = new Dimension(60, 25);
+        Dimension maxSize = new Dimension(80, 25);
 
         powerBtn = new JButton(s.isAcceso() ? "Spegni" : "Accendi");
         powerBtn.setPreferredSize(maxSize);
