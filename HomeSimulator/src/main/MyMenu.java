@@ -1,3 +1,11 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -12,6 +20,10 @@ public class MyMenu extends JMenuBar {
 
     public MyMenu(MyFrame frame) {
         super();
+
+        setPreferredSize(new Dimension(Costanti.DIM_W, 35));
+        Font menuFont = new Font(Costanti.SECONDO_FONT, Font.BOLD, 14); 
+
 
         // Menu "File"
         JMenu fileMenu = new JMenu("File");
@@ -51,7 +63,41 @@ public class MyMenu extends JMenuBar {
                 JOptionPane.INFORMATION_MESSAGE
         ));
         helpMenu.add(infoItem);
+        // Applica il font alla barra e ai menu
+            setFont(menuFont);
+            fileMenu.setFont(menuFont);
+            helpMenu.setFont(menuFont);
+
+            // Applica anche alle singole voci
+            exportItem.setFont(menuFont);
+            exitItem.setFont(menuFont);
+            infoItem.setFont(menuFont);
 
         add(helpMenu);
     }
+
+    // crea effetto gradiente in barra menu 
+    @Override
+    protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+
+    Graphics2D g2d = (Graphics2D) g.create();
+
+    // Attiva l'antialiasing (per bordi più morbidi)
+    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+    //  Definisci i due colori del gradiente
+    Color startColor = new Color(Costanti.COLOR2_HEX).darker();
+    Color endColor = new Color(Costanti.COLOR2_HEX).brighter();
+
+    // Crea un gradiente verticale (da alto → basso)
+    GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, getHeight(), endColor);
+
+    //  Applica il gradiente
+    g2d.setPaint(gradient);
+    g2d.fillRect(0, 0, getWidth(), getHeight());
+
+    g2d.dispose(); // libera le risorse grafiche
+}
+
 }
