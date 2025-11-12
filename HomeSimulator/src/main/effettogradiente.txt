@@ -1,23 +1,27 @@
-// crea effetto gradiente in barra menu 
-    @Override
-    protected void paintComponent(Graphics g) {
+@Override
+protected void paintComponent(Graphics g) {
     super.paintComponent(g);
 
     Graphics2D g2d = (Graphics2D) g.create();
-
-    // Attiva l'antialiasing (per bordi più morbidi)
     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-    //  Definisci i due colori del gradiente
-    Color startColor = new Color(Costanti.COLOR2_HEX).darker();
-    Color endColor = new Color(Costanti.COLOR2_HEX).brighter();
+    int w = getWidth();
+    int h = getHeight();
 
-    // Crea un gradiente verticale (da alto → basso)
-    GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, getHeight(), endColor);
+    // 🌈 Gradiente base (dall'alto verso il basso)
+    Color startColor = new Color(Costanti.COLOR1_HEX).brighter();
+    Color endColor = new Color(Costanti.COLOR2_HEX).darker();
+    GradientPaint base = new GradientPaint(0, 0, startColor, 0, h, endColor);
+    g2d.setPaint(base);
+    g2d.fillRect(0, 0, w, h);
 
-    //  Applica il gradiente
-    g2d.setPaint(gradient);
-    g2d.fillRect(0, 0, getWidth(), getHeight());
+    // ✨ Effetto glossy (riflesso bianco nella parte superiore)
+    GradientPaint gloss = new GradientPaint(
+        0, 0, new Color(255, 255, 255, 100),     // bianco semi-trasparente
+        0, h * 0.4f, new Color(255, 255, 255, 0) // svanisce dopo il 40% dell’altezza
+    );
+    g2d.setPaint(gloss);
+    g2d.fillRect(0, 0, w, (int)(h * 0.4)); // applica solo nella parte alta
 
-    g2d.dispose(); // libera le risorse grafiche
+    g2d.dispose();
 }

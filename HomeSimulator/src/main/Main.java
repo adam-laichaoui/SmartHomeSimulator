@@ -17,7 +17,7 @@ public class Main {
 
             // 2️ Crea e mostra lo splash screen
             SplashScreen splash = new SplashScreen();
-            splash.showForSeconds(3, frame); // mostra per 3 secondi, poi mostra il frame
+            splash.showForSeconds( Costanti.SPLESHSCREEN_TIME, frame); // mostra per 3 secondi, poi mostra il frame
         });
     }
 }

@@ -15,10 +15,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
-
 /**
  * Pannello laterale che mostra tutti i dati storici dei sensori.
- * Viene aggiornato automaticamente dalla Centralina tramite l'Observer.
+ * Include un effetto grafico con gradiente e riflesso glossy.
  */
 public class PannelloStorico extends JPanel {
 
@@ -26,50 +25,63 @@ public class PannelloStorico extends JPanel {
 
     public PannelloStorico() {
         setLayout(new BorderLayout());
-       setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(Costanti.LIGHT_GREY_HEX)), 
-                                           " Storico Dati Sensori",
-                                           TitledBorder.LEFT, 
-                                           TitledBorder.TOP, 
-                                           new Font(Costanti.SECONDO_FONT, Font.BOLD, 14), 
-                                           Color.WHITE));
+        setPreferredSize(new Dimension(Costanti.DIM_W, 0));
 
-        setPreferredSize(new Dimension(Costanti.DIM_W, 0)); // Larghezza fissa laterale
-        setBackground(new Color(Costanti.COLOR1_HEX));
+        // 🔹 Bordo con titolo personalizzato
+        setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(new Color(Costanti.LIGHT_GREY_HEX)),
+            " Storico Dati Sensori",
+            TitledBorder.LEFT,
+            TitledBorder.TOP,
+            new Font(Costanti.SECONDO_FONT, Font.BOLD, 14),
+            Color.WHITE
+        ));
 
+        // 🔹 JTextArea con gradiente interno e testo trasparente
         areaTesto = new JTextArea() {
-    @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g.create();
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Attiva antialiasing
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                int w = getWidth();
+                int h = getHeight();
 
-        // Colori del gradiente
-        Color startColor = new Color(Costanti.COLOR1_HEX).brighter();
-        Color endColor = new Color(Costanti.LIGHT_GREY_HEX).darker();
+                // 🌈 Gradiente di base interno
+                Color startColor = new Color(Costanti.COLOR1_HEX).brighter();
+                Color endColor = new Color(Costanti.COLOR2_HEX).darker();
+                GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, h, endColor);
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, w, h);
 
-        // Gradiente verticale (dall'alto verso il basso)
-        GradientPaint gradient = new GradientPaint(0, 0, startColor, 100, getHeight(), endColor);
+                // ✨ Effetto glossy (parte alta semi-trasparente)
+                GradientPaint gloss = new GradientPaint(
+                    0, 0, new Color(255, 255, 255, 90),
+                    0, h * 0.4f, new Color(255, 255, 255, 0)
+                );
+                g2d.setPaint(gloss);
+                g2d.fillRect(0, 0, w, (int)(h * 0.4));
 
-        g2d.setPaint(gradient);
-        g2d.fillRect(0, 0, getWidth(), getHeight());
-
-        g2d.dispose();
-
-        // Poi disegna normalmente il testo sopra
-        super.paintComponent(g);
-    }
-};
-       areaTesto.setOpaque(false); // molto importante: disabilita il riempimento di sfondo "pieno"
+                g2d.dispose();
+                super.paintComponent(g); // poi disegna il testo
+            }
+        };
+        areaTesto.setOpaque(false);
         areaTesto.setEditable(false);
         areaTesto.setFont(new Font(Costanti.TITLE_FONT, Font.BOLD, 12));
         areaTesto.setForeground(Color.WHITE);
 
         JScrollPane scroll = new JScrollPane(areaTesto);
+        scroll.setOpaque(false);
+        scroll.getViewport().setOpaque(false);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+
         add(scroll, BorderLayout.CENTER);
     }
 
-   
+    /**
+     * Aggiorna il contenuto della JTextArea con lo storico dei sensori.
+     */
     public void aggiornaStorico(Map<String, List<DatoSensore>> storico) {
         StringBuilder sb = new StringBuilder();
 
@@ -85,30 +97,37 @@ public class PannelloStorico extends JPanel {
         }
 
         areaTesto.setText(sb.toString());
-        areaTesto.setCaretPosition(areaTesto.getDocument().getLength()); // scorre sempre in fondo
+        areaTesto.setCaretPosition(areaTesto.getDocument().getLength());
     }
 
-    // crea effetto gradiente in barra menu 
+    /**
+     * Effetto gradiente + glossy sul pannello principale.
+     */
     @Override
     protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
+        super.paintComponent(g);
 
-    Graphics2D g2d = (Graphics2D) g.create();
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-    // Attiva l'antialiasing (per bordi più morbidi)
-    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        int w = getWidth();
+        int h = getHeight();
 
-    //  Definisci i due colori del gradiente
-    Color startColor = new Color(Costanti.COLOR2_HEX).darker();
-    Color endColor = new Color(Costanti.COLOR2_HEX).brighter();
+        // 🌈 Gradiente di base
+        Color startColor = new Color(Costanti.COLOR1_HEX).brighter();
+        Color endColor = new Color(Costanti.COLOR2_HEX).darker();
+        GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, h, endColor);
+        g2d.setPaint(gradient);
+        g2d.fillRect(0, 0, w, h);
 
-    // Crea un gradiente verticale (da alto → basso)
-    GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, getHeight(), endColor);
+        // ✨ Effetto glossy superiore
+        GradientPaint gloss = new GradientPaint(
+            0, 0, new Color(255, 255, 255, 80),
+            0, h * 0.35f, new Color(255, 255, 255, 0)
+        );
+        g2d.setPaint(gloss);
+        g2d.fillRect(0, 0, w, (int)(h * 0.35));
 
-    //  Applica il gradiente
-    g2d.setPaint(gradient);
-    g2d.fillRect(0, 0, getWidth(), getHeight());
-
-    g2d.dispose(); // libera le risorse grafiche
-}
+        g2d.dispose();
+    }
 }

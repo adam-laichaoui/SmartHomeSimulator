@@ -8,51 +8,54 @@ import java.awt.RenderingHints;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.border.TitledBorder;
-
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
+/**
+ * Pannello dei controlli principali: pulsanti per gestire i sensori.
+ * Include un effetto grafico con gradiente verticale e riflesso glossy nella parte superiore.
+ */
 public class ControlPanel extends JPanel {
+    
     private boolean freezeAttivo = false; // stato locale del freeze
 
     public ControlPanel(MyFrame frame) {
         setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        // 🔹 Bordo con titolo personalizzato
         TitledBorder border = BorderFactory.createTitledBorder(
-        BorderFactory.createLineBorder(Color.WHITE.brighter(), 5),  // bordo bianco scurito 
-        " CONTROLLI SENSORI ",                       // testo del titolo
-        TitledBorder.LEFT,                             // allineamento a sinistra
-        TitledBorder.TOP,                              // posizione del titolo
-        new Font(Costanti.SECONDO_FONT, Font.BOLD, 13),          // font personalizzato
-        Color.WHITE.brighter()                          // colore bianco
+            BorderFactory.createLineBorder(Color.WHITE.brighter(), 5),   // bordo bianco chiaro
+            " CONTROLLI SENSORI ",                                      // testo del titolo
+            TitledBorder.LEFT,                                          // allineamento titolo
+            TitledBorder.TOP,                                           // posizione del titolo
+            new Font(Costanti.SECONDO_FONT, Font.BOLD, 13),             // font personalizzato
+            Color.WHITE.brighter()                                      // colore del testo
         );
         setBorder(border);
 
+        // 🔹 Pulsanti principali
         JButton generaBtn = new JButton("Genera valori");
         JButton freezeBtn = new JButton("Freeze");
         JButton nuovoSensoreBtn = new JButton("Nuovo sensore");
 
-        
-        // modificare colore e font dei bottoni 
-
+        // 🔹 Stile dei pulsanti
         Font btnFont = new Font(Costanti.SECONDO_FONT, Font.BOLD, 13);
-
         for (JButton b : List.of(generaBtn, freezeBtn, nuovoSensoreBtn)) {
-        b.setFocusPainted(false);
-        b.setFont(btnFont);
-        b.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15)); // padding
-        b.setOpaque(true);  // necessario per far vedere il colore su alcuni Look and Feel
-        b.setBackground(Color.LIGHT_GRAY.brighter());
-        b.setBorderPainted(false);
-        b.setContentAreaFilled(true);
-
+            b.setFocusPainted(false);
+            b.setFont(btnFont);
+            b.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15)); // padding interno
+            b.setOpaque(true);
+            b.setBackground(Color.LIGHT_GRAY.brighter());
+            b.setBorderPainted(false);
+            b.setContentAreaFilled(true);
         }
 
-        //  Pulsante "Genera valori"
+        // 🔹 Azione "Genera valori"
         generaBtn.addActionListener(e -> frame.accendiSensori());
 
-        // Pulsante "Freeze / Riprendi"
+        // 🔹 Azione "Freeze / Riprendi"
         freezeBtn.addActionListener(e -> {
             if (!freezeAttivo) {
                 frame.spegniSensori();
@@ -71,36 +74,43 @@ public class ControlPanel extends JPanel {
             }
         });
 
-        // Pulsante "Nuovo sensore"
+        // 🔹 Azione "Nuovo sensore"
         nuovoSensoreBtn.addActionListener(e -> frame.creaNuovoSensore());
 
-        // Aggiunta dei pulsanti al pannello
+        // 🔹 Aggiunta pulsanti al pannello
         add(generaBtn);
         add(freezeBtn);
         add(nuovoSensoreBtn);
     }
 
-     @Override
+    /**
+     * Disegna lo sfondo con gradiente verticale e riflesso glossy nella parte superiore.
+     */
+    @Override
     protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
+        super.paintComponent(g);
 
-    Graphics2D g2d = (Graphics2D) g.create();
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-    // Attiva l'antialiasing (per bordi più morbidi)
-    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        int w = getWidth();
+        int h = getHeight();
 
-    //  Definisci i due colori del gradiente
-    Color startColor = new Color(Costanti.COLOR1_HEX).brighter();
-    Color endColor = new Color(Costanti.COLOR2_HEX).darker();
+        // 🌈 Gradiente base (verticale, dall'alto verso il basso)
+        Color startColor = new Color(Costanti.COLOR1_HEX).brighter();
+        Color endColor = new Color(Costanti.COLOR2_HEX).darker();
+        GradientPaint base = new GradientPaint(0, 0, startColor, 0, h, endColor);
+        g2d.setPaint(base);
+        g2d.fillRect(0, 0, w, h);
 
-    // Crea un gradiente verticale (da alto → basso)
-    GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, getHeight(), endColor);
+        // ✨ Effetto glossy (riflesso bianco semi-trasparente nella parte superiore)
+        GradientPaint gloss = new GradientPaint(
+            0, 0, new Color(255, 255, 255, 100),   // bianco semi-trasparente
+            0, h * 0.4f, new Color(255, 255, 255, 0) // svanisce a circa 40% dell'altezza
+        );
+        g2d.setPaint(gloss);
+        g2d.fillRect(0, 0, w, (int)(h * 0.4)); // riflesso solo sulla parte alta
 
-    //  Applica il gradiente
-    g2d.setPaint(gradient);
-    g2d.fillRect(0, 0, getWidth(), getHeight());
-
-    g2d.dispose(); // libera le risorse grafiche
-}
-
+        g2d.dispose(); // libera le risorse grafiche
+    }
 }
