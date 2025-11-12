@@ -1,7 +1,15 @@
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.JWindow;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import java.net.URL;
+
 
 /**
  * Splash screen iniziale dell'applicazione.
@@ -19,7 +27,7 @@ public class SplashScreen extends JWindow {
         ImageIcon logoIcon = null;
         try {
             //  Carica l'immagine dal classpath (es: src/resources/logopiccolo.jpg)
-            URL logoURL = getClass().getResource("/resources/logopiccolo.jpg");
+            URL logoURL = getClass().getResource("src\\main\\resources\\images\\logopiccolo.jpg");
 
             if (logoURL != null) {
                 logoIcon = new ImageIcon(logoURL);
