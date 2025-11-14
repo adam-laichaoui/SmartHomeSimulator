@@ -1,4 +1,3 @@
-package main;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -21,8 +20,10 @@ public class SensoreFumo extends Sensore {
     private boolean movimentoAttivo = false;
 
     public SensoreFumo(Centralina centralina) {
-        super(PREFIX_SENSORE + contaDispositivi, centralina);
-        contaDispositivi += 1;
+        super("FUMO-" + contaDispositivi, centralina, TipoSensore.FUMO);
+        synchronized (SensoreFumo.class) {
+            contaDispositivi++;
+        }
     }
 
     @Override
