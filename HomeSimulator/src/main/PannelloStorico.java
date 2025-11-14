@@ -130,4 +130,9 @@ public class PannelloStorico extends JPanel {
 
         g2d.dispose();
     }
+
+    //per migliorare la classe exporter e il risultato export
+    public String getTestoFormattato() {
+    return areaTesto.getText();
+}
 }

@@ -23,6 +23,7 @@ public class MyFrame extends JFrame implements Observer {
     private Map<String, SensorPanel> panels;
     //private boolean freezeAttivo = false; // indica se i sensori sono attualmente in pausa
     private PannelloStorico pannelloStorico;
+    
 
 
     public MyFrame() {
@@ -135,15 +136,26 @@ public class MyFrame extends JFrame implements Observer {
     }
 
 
-    
-    @Override
+@Override
 public void update(String id, Map<String, DatoSensore> dati) {
-    SwingUtilities.invokeLater(() -> {// se no non genera valori
-        if (id != null && panels.containsKey(id)) {
-            panels.get(id).updateData(dati.get(id));
-        }
+    if (id != null && panels.containsKey(id)) {
+        panels.get(id).updateData(dati.get(id));
+    }
+
+    if (pannelloStorico != null) {
         pannelloStorico.aggiornaStorico(centralina.getStorico());
-    });
+    }
 }
+
+//migliorare l'export
+public PannelloStorico getPannelloStorico() {
+    return pannelloStorico;
+}
+
+public Centralina getCentralina() {
+    return centralina;
+}
+
+
 
 }
