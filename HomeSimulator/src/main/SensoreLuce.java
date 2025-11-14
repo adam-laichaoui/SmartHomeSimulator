@@ -1,4 +1,4 @@
-//package main;
+package main;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,8 +15,8 @@ public class SensoreLuce extends Sensore {
     private static final double LUMINOSITA_MAX = 600;
     
     public SensoreLuce(Centralina centralina) {
-        super("LUCE-" + contaDispositivi, centralina, TipoSensore.LUCE);
-        synchronized (SensoreLuce.class) {
+        super(PREFIX_SENSORE + contaDispositivi, centralina);
+        synchronized (this) {
             contaDispositivi++;
         }
     }

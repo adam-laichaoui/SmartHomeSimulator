@@ -1,4 +1,4 @@
-//package main;
+package main;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -20,11 +20,9 @@ public class SensoreMovimento extends Sensore {
     private long tempoInizioMovimento = 0;
     private boolean movimentoAttivo = false;
 
-   public SensoreMovimento(Centralina centralina) {
-        super("MOV-" + contaDispositivi, centralina, TipoSensore.MOVIMENTO);
-        synchronized (SensoreMovimento.class) {
-            contaDispositivi++;
-        }
+    public SensoreMovimento(Centralina centralina) {
+        super(PREFIX_SENSORE + contaDispositivi, centralina);
+        contaDispositivi += 1;
     }
 
     @Override

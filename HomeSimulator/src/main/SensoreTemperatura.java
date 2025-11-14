@@ -1,4 +1,4 @@
-//package main;
+package main;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,8 +15,8 @@ public class SensoreTemperatura extends Sensore {
     private static final double TEMPERATURA_MAX = 27;
     
     public SensoreTemperatura(Centralina centralina) {
-        super("TEMP-" + contaDispositivi, centralina, TipoSensore.TEMPERATURA);
-        synchronized (SensoreTemperatura.class) {
+        super(PREFIX_SENSORE + contaDispositivi, centralina);
+        synchronized (this) {
             contaDispositivi++;
         }
     }
