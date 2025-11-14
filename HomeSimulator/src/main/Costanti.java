@@ -18,8 +18,11 @@ public final class Costanti {
 
 
 	public static final int LIGHT_GREY_HEX=0x9AB3B3B3 ;
-	public static final int COLOR1_HEX=0X003366;
-	public static final int COLOR2_HEX=0x4D94FF;
+	public static final int COLOR1_HEX=0X303030;
+	//public static final int COLOR1_HEX=0X003366;
+	//public static final int COLOR2_HEX=0x4D94FF;
+
+	public static final int COLOR2_HEX=0X5C5C5C;
 
 	
 	public static final String IMM_PATH = "src\\\\main\\\\resources\\\\images";
