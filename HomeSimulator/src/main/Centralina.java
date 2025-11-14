@@ -23,7 +23,7 @@ public class Centralina {
         this.osservatore = osservatore;
     }
 
-    /**
+    /**    
      * Aggiunge un nuovo dato allo storico e aggiorna la GUI.
      */
     public synchronized void aggiornaDato(String id, DatoSensore dato) {
