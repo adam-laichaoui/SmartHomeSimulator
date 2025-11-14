@@ -1,5 +1,3 @@
-//package main;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -14,14 +12,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 
 public class MyFrame extends JFrame implements Observer {
     private Centralina centralina;
     private JPanel sensorsPanel;
     private Map<String, SensorPanel> panels;
-    //private boolean freezeAttivo = false; // indica se i sensori sono attualmente in pausa
     private PannelloStorico pannelloStorico;
     
 

@@ -50,7 +50,7 @@ public abstract class Sensore extends Thread {
             synchronized (this) {
                 while (!attivo) {
                     try {
-                        wait(); // 🔹 sospende il thread finché non viene riacceso
+                        wait(); //  sospende il thread finché non viene riacceso
                     } catch (InterruptedException e) {
                         System.out.println(MSG_ERR + "interrotto: " + e.getMessage());
                         return; // esce pulitamente
